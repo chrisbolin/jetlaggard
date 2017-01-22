@@ -29,7 +29,7 @@ const roundTo = (number, rounding) => (
 
 const Place = ({name, zone, timestamp}) => {
   const m = moment.tz(timestamp, zone);
-  const printedTime = m.format('h:mm A ddd');
+  const printedTime = m.format('hh:mm A ddd');
 
   return (
     <div className="Place">
@@ -53,10 +53,9 @@ const PlaceTimeline = ({ initialTimestamp, zone }) => {
   const m = moment.tz(initialTimestamp, zone);
   const hourOffset = m.hours();
   const fractionalOffset = m.minutes()/60;
-  console.log(m.format('HH:mm'), hourOffset);
   return (
     <div className="PlaceTimeline">
-      <svg width="100%" height="20" viewBox="0 0 171.36 1" preserveAspectRatio="none">
+      <svg width="100%" height="20" viewBox="0 0 184.8 1" preserveAspectRatio="none">
         {
           times(24 * 8,
             index => <TimelineHour index={index} hourOffset={hourOffset} fractionalOffset={fractionalOffset} key={index}/>
@@ -67,12 +66,18 @@ const PlaceTimeline = ({ initialTimestamp, zone }) => {
   );
 };
 
+const hourColor = hour => {
+  if (hour < 7 || hour > 21) return 'MidnightBlue'; // night
+  if (hour < 9 || hour > 17) return 'LightSkyBlue'; // morning + evening
+  return 'AliceBlue'; // day
+};
+
 const TimelineHour = ({ index, hourOffset, fractionalOffset }) => {
-  const xPosition = index - fractionalOffset - 20/60; // correction factor to translate to center of screen
-  const hour = Math.round(index + fractionalOffset + hourOffset + 10 - 20/60) % 24;
+  const xPosition = index - fractionalOffset + 26/60; // correction factor to translate to center of screen
+  const hour = Math.round(index + fractionalOffset + hourOffset + 3 + 26/60) % 24;
   return <g>
-    <rect width="0.98" height="1" x={xPosition} fill="lightblue"/>
-    <text x={xPosition} y={0.5} fontSize="0.4">{hour}</text>
+    <rect width="0.98" height="1" x={xPosition} fill={hourColor(hour)}/>
+    {/* <text x={xPosition} y={0.5} fontSize="0.4">{hour}</text> */}
   </g>;
 };
 
@@ -106,7 +111,7 @@ class App extends Component {
   }
   centerView(){
     setTimeout(() => {
-      window.scroll(document.body.clientWidth * 25, 0);
+      window.scroll(document.body.clientWidth * 5, 0);
     }, 0);
   }
   componentDidMount(){
@@ -129,7 +134,7 @@ class App extends Component {
   getTimestamp() {
     return roundTo(
       this.initialTimestamp + (this.getX() - 0.5) * 7 * 24 * 60 * 60 * 1000, // span 1 week (3.5 days on each side)
-      1 * 60 * 1000 // round to 5 minute increments
+      15 * 60 * 1000 // round to 15-minute increments
     );
   }
   render() {
