@@ -142,6 +142,7 @@ class App extends Component {
       <div className="App">
         <Slider places={myPlaces} initialTimestamp={this.initialTimestamp}/>
         <PlaceList places={myPlaces} timestamp={this.getTimestamp()}/>
+        <div className="centerline"/>
       </div>
     );
   }

@@ -14,7 +14,7 @@
 .Place .name {
   width: 50%;
   font-weight: bold;
-  border-right: 1px solid black;
+  /*border-right: 1px solid black;*/
 }
 
 .Place .time {
@@ -40,4 +40,11 @@
 .Slider .spanner {
   height: 100px;
   width: 1100vw;
+}
+
+.centerline {
+  position: fixed;
+  left: 50vw;
+  border-left: 1px solid rgba(0,0,0,0.2);
+  height: 100%;
 }
