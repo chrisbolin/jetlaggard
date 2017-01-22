@@ -9,14 +9,16 @@
 
 .Place div {
   display: inline-block;
-  width: 50%;
 }
 
 .Place .name {
+  width: 50%;
   font-weight: bold;
+  border-right: 1px solid black;
 }
 
 .Place .time {
+  width: 48%;
   text-align: right;
 }
 
@@ -28,12 +30,14 @@
   padding-top: 3em;
 }
 
+.PlaceTimeline {
+  height: 4em;
+}
+
 .Slider {
   position: absolute;
-  left: calc(-2500vw); /* -(5100 - 100)/2 */
 }
-.Slider .core {
-  height: 20px;
-  background: linear-gradient( 90deg, blue, red );
+.Slider .spanner {
+  height: 85px;
   width: 5100vw;
 }
